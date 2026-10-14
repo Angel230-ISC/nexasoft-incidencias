@@ -29,14 +29,19 @@ class GestorIncidencias {
     return incidencias.where((x) => x.estado == estado).length;
   }
 
-  Future<void> cambiarEstado(String id, String estado) async {
-    for (var i = 0; i < incidencias.length; i++) {
-      if (incidencias[i].id == id) {
-        incidencias[i].estado = estado;
-        break;
-      }
+
+Future<void> cambiarEstado(String id, String estado) async {
+  for (var i = 0; i < incidencias.length; i++) {
+    if (incidencias[i].id == id) {
+      incidencias[i].estado = estado;
+      cantidadPendientes =
+          incidencias.where((x) => x.estado == 'Pendiente').length;
+      await datos.guardar(incidencias);
+      break;
     }
   }
+}
+
 
   Future<void> crear(String titulo, String descripcion, String cliente,
       String categoria) async {
