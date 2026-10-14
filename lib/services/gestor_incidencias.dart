@@ -54,9 +54,27 @@ Future<void> cambiarEstado(String id, String estado) async {
   }
 }
 
+Future<void> cambiarPrioridad(String id, String prioridad) async {
+  const prioridadesValidas = ['Baja', 'Media', 'Alta'];
+
+  if (!prioridadesValidas.contains(prioridad)) {
+    throw ArgumentError('La prioridad no es válida');
+  }
+
+  for (var i = 0; i < incidencias.length; i++) {
+    if (incidencias[i].id == id) {
+      incidencias[i].prioridad = prioridad;
+      await datos.guardar(incidencias);
+      return;
+    }
+  }
+
+  throw ArgumentError('No se encontró la incidencia $id');
+}
+
 
   Future<void> crear(String titulo, String descripcion, String cliente,
-      String categoria) async {
+      String categoria, String prioridad, ) async {
     final nuevo = Incidencia(
       id: 'INC-${DateTime.now().microsecondsSinceEpoch}',
       titulo: titulo,
@@ -64,6 +82,7 @@ Future<void> cambiarEstado(String id, String estado) async {
       cliente: cliente,
       categoria: categoria,
       estado: 'Pendiente',
+      prioridad: prioridad,
       fecha: DateTime.now().toIso8601String().split('T').first,
     );
     incidencias.insert(0, nuevo);

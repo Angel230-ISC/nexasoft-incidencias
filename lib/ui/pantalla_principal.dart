@@ -190,6 +190,20 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                                               Text(item.estado, style: TextStyle(
                                                 color: colorEstado(item.estado), fontWeight: FontWeight.bold,
                                               )),
+                                              
+                                              const SizedBox(height: 6),
+                                              Text(
+                                                'Prioridad: ${item.prioridad}',
+                                                style: TextStyle(
+                                                  color: item.prioridad == 'Alta'
+                                                      ? Colors.red
+                                                      : item.prioridad == 'Baja'
+                                                          ? Colors.green
+                                                          : Colors.orange,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+
                                             ],
                                           ),
                                         ),
