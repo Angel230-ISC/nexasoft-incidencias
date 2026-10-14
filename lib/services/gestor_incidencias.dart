@@ -37,10 +37,9 @@ List<Incidencia> buscar(String texto) {
     return null;
   }
 
-  int contar(String estado) {
-    if (estado == 'Pendiente') return cantidadPendientes;
-    return incidencias.where((x) => x.estado == estado).length;
-  }
+int contar(String estado) {
+  return incidencias.where((x) => x.estado == estado).length;
+}
 
 
 Future<void> cambiarEstado(String id, String estado) async {
